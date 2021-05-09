@@ -16,7 +16,7 @@ application = Flask(__name__,static_folder='images')
 #application.secret_key = 'secret'
 
 DATA_FILE = 'data.json'
-UPLOAD_DIR = "/Users/akiyamasayaka/Desktop/"
+UPLOAD_DIR = "/"
 SAVE_DIR = "images"
 FIG_FILE = "figure.png"
 

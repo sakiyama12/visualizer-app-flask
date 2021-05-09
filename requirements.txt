@@ -1,0 +1,7 @@
+numpy
+pandas
+json
+csv
+matplotlib.pyplot
+flask
+datetime

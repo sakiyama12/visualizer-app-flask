@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja"> 
+<head>
+    <meta http-equiv="content-type" charset="UTF-8">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" href="/static/css/style.css?ver=0.0.1>" type="text/css">
+    <title>可視化アプリ</title>
+</head>
+
+<body>
+    <h1><a href="/">可視化アプリ</a></h1>
+    <form name="uploadFile" action="/upload" method="post" enctype="multipart/form-data">
+        <tr id="upFileWrap">
+            <div id="inputFile">
+                <!-- ドラッグ&ドロップエリアz -->
+                <p id="dropArea">ここにファイルをドロップしてください<br>または</p>
+
+                <!-- 通常のinput[type=file] -->
+                <div id="inputFileWrap">
+                    <!-- sa:入力ファイルのnameとidはあとで見直すかも -->
+                    <input type="file" name="uploadFile">
+                    <button name="upload" id="upload" value="1">送信</button>
+                    
+                </div>
+            </div>
+        </tr>
+
+        <table class="list">
+        {% for data in dataset %}
+            <tr>
+            {{ dataset }}
+            </tr>
+        {% endfor %}
+        </table>
+
+    </form>
+
+    <h2>可視化メニュー</h2>
+
+    <form name="visualizar" action="/visualize" method="post">
+        <tr class="visualize">
+            <label>
+                <input class="condition" type="radio" name="condition" value="hist" onclick="formSwitch()">
+                ヒストグラム
+            </label>
+            <label>
+                <input class="condition" type="radio" name="condition" value="series" onclick="formSwitch()">
+                折れ線
+            </label>
+            <label>
+                <input class="condition" type="radio" name="condition" value="scatter" onclick="formSwitch()">
+                散布図
+            </label>
+            
+            <div id="hist">
+                x: <input name="x" type="search" list="list1">
+                <datalist id="list1">
+                    {% for tag in tags %}
+                    <option value="{{ tag }}">{{ tag }}</option>
+                    {% endfor %}
+                </datalist>
+            </div>
+            <div id="series">
+                x: <input name="x" type="search" list="list2">
+                <datalist id="list2">
+                    {% for tag in tags %}
+                    <option value="{{ tag }}">{{ tag }}</option>
+                    {% endfor %}
+                </datalist>
+                </select>
+                y: <input name="y" type="search" list="list2">
+                <datalist id="list2">
+                    {% for tag in tags %}
+                    <option value="{{ tag }}">{{ tag }}</option>
+                    {% endfor %}
+                </datalist>
+            </div>
+            <div id="scatter">
+                x: <input name="x" type="search" list="list3">
+                <datalist id="list3">
+                    {% for tag in tags %}
+                    <option value="{{ tag }}">{{ tag }}</option>
+                    {% endfor %}
+                </datalist>
+                y: <input name="y" type="search" list="list3">
+                <datalist id="list3">
+                    {% for tag in tags %}
+                    <option value="{{ tag }}">{{ tag }}</option>
+                    {% endfor %}
+                </datalist>
+            </div>
+            <br/>
+            <button name="visualize" value="1">可視化</button>
+        </tr>
+
+        <h2>可視化結果</h2>
+        <tr>
+            <img src="{{ fig }}?<?php echo date(Ymd-Hi'); ?>" alt="result"/>
+
+        </tr>
+
+    </form>
+    <script type="text/javascript" src="/static/js/index.js?p=(new Date()).getTime()"></script> <!-- linkタグを追加-->
+</body>
+</html>
